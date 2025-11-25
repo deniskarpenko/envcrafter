@@ -5,11 +5,11 @@ import (
 	"log"
 
 	"github.com/pressly/goose/v3"
-	_ "modernc.org/sqlite" // Новый драйвер SQLite без CGO
+	_ "modernc.org/sqlite"
 )
 
 func main() {
-	db, err := sql.Open("sqlite", "images.db") // Измени "sqlite3" на "sqlite"
+	db, err := sql.Open("sqlite", "images.db")
 	if err != nil {
 		log.Fatal(err)
 	}

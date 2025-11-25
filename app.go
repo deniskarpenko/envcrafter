@@ -7,57 +7,58 @@ import (
 	"fmt"
 	"log"
 
-	"gorm.io/driver/sqlite"
+	"github.com/glebarez/sqlite" // ← Pure Go драйвер
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
-// App struct
 type App struct {
 	ctx       context.Context
 	imageRepo *db.ImageRepository
 }
 
-// NewApp creates a new App application struct
 func NewApp() *App {
 	return &App{}
 }
 
-// startup is called when the app starts. The context is saved
-// so we can call the runtime methods
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 
-	a.ctx = ctx
+	dbPath := "./images.db"
 
-	dbGorm, err := gorm.Open(sqlite.Open("./db/images.db"), &gorm.Config{})
+	log.Printf("Opening database: %s", dbPath)
+
+	dbGorm, err := gorm.Open(sqlite.Open(dbPath), &gorm.Config{
+		Logger: logger.Default.LogMode(logger.Info),
+	})
 
 	if err != nil {
-		log.Fatal(err)
+		log.Fatal("Failed to open database:", err)
 	}
+
+	log.Println("✓ Database connected successfully")
 
 	a.imageRepo = db.NewImageRepository(dbGorm)
 }
 
 func (a *App) GetAllImages() []models.Image {
 	images, err := a.imageRepo.GetAllImages()
-
 	if err != nil {
-		log.Fatal(err)
+		log.Printf("Error getting images: %v", err)
+		return []models.Image{}
 	}
-
 	return images
 }
 
 func (a *App) GetTagByImageId(imageId int) []models.Tag {
 	tags, err := a.imageRepo.GetTagsByImageId(imageId)
 	if err != nil {
-		log.Fatal(err)
+		log.Printf("Error getting tags: %v", err)
+		return []models.Tag{}
 	}
-
 	return tags
 }
 
-// Greet returns a greeting for the given name
 func (a *App) Greet(name string) string {
 	return fmt.Sprintf("Hello %s, It's show time!", name)
 }
