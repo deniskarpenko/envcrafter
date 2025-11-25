@@ -62,7 +62,7 @@ const imageCollapseHandler = () => {
 };
 
 const getSrcForImage = (image: ImageOption): string => {
-  return  `/images/tech/${image.docker_image}.svg`;
+  return  `/src/assets/images/tech/${image.docker_image}.svg`;
 };
 
 const updateModel = () => {
