@@ -7,6 +7,7 @@ type ServiceBuilder interface {
 	WithBuild(context string, dockerfile string) ServiceBuilder
 	WithVolumes(hostPath string, containerHost string) ServiceBuilder
 	WithPorts(hostPort int, containerPort int) ServiceBuilder
+	WithEnv(variable string, value string) ServiceBuilder
 }
 
 type Service struct {
@@ -14,7 +15,12 @@ type Service struct {
 	build   *valueobjects.Build
 	volumes []*valueobjects.Volume
 	ports   []*valueobjects.Port
+	envs    []*valueobjects.Env
 	errors  []error
+}
+
+func NewService() *Service {
+	return &Service{}
 }
 
 func (s *Service) WithImage(image string, tag string) ServiceBuilder {
@@ -49,4 +55,30 @@ func (s *Service) WithPorts(hostPort int, containerPort int) ServiceBuilder {
 
 	s.ports = append(s.ports, &p)
 	return s
+}
+
+func (s *Service) WithEnv(variable string, value string) ServiceBuilder {
+	e := valueobjects.NewEnv(variable, value)
+	s.envs = append(s.envs, &e)
+	return s
+}
+
+func (s *Service) GetImage() *valueobjects.Image {
+	return s.image
+}
+
+func (s *Service) GetBuild() *valueobjects.Build {
+	return s.build
+}
+
+func (s *Service) GetVolumes() []*valueobjects.Volume {
+	return s.volumes
+}
+
+func (s *Service) GetPorts() []*valueobjects.Port {
+	return s.ports
+}
+
+func (s *Service) GetEnvs() []*valueobjects.Env {
+	return s.envs
 }
