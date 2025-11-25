@@ -2,7 +2,7 @@
   <div class="image-row">
     <div class="image-row-header">
       <h4 @click="imageCollapseHandler"> {{ title }} {{ arrow }} </h4>
-      <img src="/images/icons/gear.svg" @click="settingClickHandler(type)">
+      <img :src="gearIcon" @click="settingClickHandler(type)">
     </div>
     <div class="image-list" :class="{ hidden: !isOpen }">
       <button
@@ -31,6 +31,7 @@ import {TagOption} from "../types/TagOption";
 import { ref, computed } from "vue";
 import {ImageWithTag} from "../types/ImageWithTag";
 import {ImageTypes} from "../types/ImageTypes";
+import gearIcon from '@/assets/images/icons/gear.svg'
 
 interface Props {
   images: ImageOption[];
