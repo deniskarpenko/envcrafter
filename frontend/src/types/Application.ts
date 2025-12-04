@@ -12,14 +12,17 @@ export interface ContainerConfig {
 export interface ImageWithTagConfig {
     image: ImageWithTag | null;
     config: ContainerConfig;
-
 }
 
-export interface Project {
+export interface Service {
     backend: ImageWithTagConfig | null;
     sql: ImageWithTagConfig | null;
     nosql: ImageWithTagConfig | null;
     web: ImageWithTagConfig | null;
+}
+
+export interface Project {
+    services: Service[]
 }
 
 export interface ApplicationConfig {
