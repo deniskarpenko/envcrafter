@@ -12,18 +12,14 @@ type ContainerConfig struct {
 	Envs     []string `json:"envs"`
 }
 
-type ImageWithTagConfig struct {
+type Service struct {
 	Image  *ImageWithTag    `json:"image"`  // pointer для null значений
 	Config *ContainerConfig `json:"config"` // pointer для null значений
 }
 
-type ServiceConfig struct {
-	Backend *ImageWithTagConfig `json:"backend"`
-	SQL     *ImageWithTagConfig `json:"sql"`
-	Nosql   *ImageWithTagConfig `json:"nosql"`
-	Web     *ImageWithTagConfig `json:"web"`
-}
-
-type ProjectConfig struct {
-	Services []ServiceConfig `json:"services"`
+type Project struct {
+	Backend *Service `json:"backend"`
+	SQL     *Service `json:"sql"`
+	Nosql   *Service `json:"nosql"`
+	Web     *Service `json:"web"`
 }

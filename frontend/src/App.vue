@@ -3,23 +3,16 @@
 </template>
 <script lang="ts" setup>
 import { Build } from "../wailsjs/go/main/App";
+import { main } from "../wailsjs/go/models";
 import Application from "./layers/Application.vue";
 import {Project} from "./types/Application";
+import ProjectForGo = main.Project;
+import { convertFromVueToGoProject } from "./utils/converter";
 const handleBuild = (project : Project): void => {
-  console.log(project);
+  
+  const projectToGo = convertFromVueToGoProject(project);
 
-  Build(project);
- // const app = new ApplicationConfig();
- //
- // const projectConfig = toProjectConfig(project)
- //
- // if (!app.projects) {
- //   app.projects = [];
- // }
- //
- // app.projects.push(projectConfig);
- //
- //  Build(app);
+  Build(projectToGo)
 }
 </script>
 

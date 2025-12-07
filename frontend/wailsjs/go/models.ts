@@ -32,12 +32,12 @@ export namespace main {
 	        this.tag = source["tag"];
 	    }
 	}
-	export class ImageWithTagConfig {
+	export class Service {
 	    image?: ImageWithTag;
 	    config?: ContainerConfig;
 	
 	    static createFrom(source: any = {}) {
-	        return new ImageWithTagConfig(source);
+	        return new Service(source);
 	    }
 	
 	    constructor(source: any = {}) {
@@ -64,52 +64,22 @@ export namespace main {
 		    return a;
 		}
 	}
-	export class ServiceConfig {
-	    backend?: ImageWithTagConfig;
-	    sql?: ImageWithTagConfig;
-	    nosql?: ImageWithTagConfig;
-	    web?: ImageWithTagConfig;
+	export class Project {
+	    backend?: Service;
+	    sql?: Service;
+	    nosql?: Service;
+	    web?: Service;
 	
 	    static createFrom(source: any = {}) {
-	        return new ServiceConfig(source);
+	        return new Project(source);
 	    }
 	
 	    constructor(source: any = {}) {
 	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.backend = this.convertValues(source["backend"], ImageWithTagConfig);
-	        this.sql = this.convertValues(source["sql"], ImageWithTagConfig);
-	        this.nosql = this.convertValues(source["nosql"], ImageWithTagConfig);
-	        this.web = this.convertValues(source["web"], ImageWithTagConfig);
-	    }
-	
-		convertValues(a: any, classs: any, asMap: boolean = false): any {
-		    if (!a) {
-		        return a;
-		    }
-		    if (a.slice && a.map) {
-		        return (a as any[]).map(elem => this.convertValues(elem, classs));
-		    } else if ("object" === typeof a) {
-		        if (asMap) {
-		            for (const key of Object.keys(a)) {
-		                a[key] = new classs(a[key]);
-		            }
-		            return a;
-		        }
-		        return new classs(a);
-		    }
-		    return a;
-		}
-	}
-	export class ProjectConfig {
-	    services: ServiceConfig[];
-	
-	    static createFrom(source: any = {}) {
-	        return new ProjectConfig(source);
-	    }
-	
-	    constructor(source: any = {}) {
-	        if ('string' === typeof source) source = JSON.parse(source);
-	        this.services = this.convertValues(source["services"], ServiceConfig);
+	        this.backend = this.convertValues(source["backend"], Service);
+	        this.sql = this.convertValues(source["sql"], Service);
+	        this.nosql = this.convertValues(source["nosql"], Service);
+	        this.web = this.convertValues(source["web"], Service);
 	    }
 	
 		convertValues(a: any, classs: any, asMap: boolean = false): any {

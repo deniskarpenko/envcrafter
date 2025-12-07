@@ -3,7 +3,7 @@
 import {main} from '../models';
 import {models} from '../models';
 
-export function Build(arg1:main.ProjectConfig):Promise<void>;
+export function Build(arg1:main.Project):Promise<void>;
 
 export function GetAllImages():Promise<Array<models.Image>>;
 
