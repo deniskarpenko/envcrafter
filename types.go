@@ -8,13 +8,13 @@ type ImageWithTag struct {
 type ContainerConfig struct {
 	Ports    []string `json:"ports"`
 	Volumes  []string `json:"volumes"`
-	EnvFiles [][]byte `json:"envFiles"` // В Go файлы передаются как пути (строки)
+	EnvFiles [][]byte `json:"envFiles"`
 	Envs     []string `json:"envs"`
 }
 
 type Service struct {
-	Image  *ImageWithTag    `json:"image"`  // pointer для null значений
-	Config *ContainerConfig `json:"config"` // pointer для null значений
+	Image  *ImageWithTag    `json:"image"`
+	Config *ContainerConfig `json:"config"`
 }
 
 type Project struct {
