@@ -59,10 +59,10 @@ func (a *App) GetTagByImageId(imageId int) []models.Tag {
 	return tags
 }
 
-func (a *App) Build(project Project) {
-	fmt.Println(project)
-}
+func (a *App) Build(project Project) 
+{
+	if project.Backend {
 
-func (a *App) Greet(name string) string {
-	return fmt.Sprintf("Hello %s, It's show time!", name)
+	}
+	fmt.Println(project)
 }
