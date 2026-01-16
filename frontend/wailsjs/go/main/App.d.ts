@@ -8,5 +8,3 @@ export function Build(arg1:main.Project):Promise<void>;
 export function GetAllImages():Promise<Array<models.Image>>;
 
 export function GetTagByImageId(arg1:number):Promise<Array<models.Tag>>;
-
-export function Greet(arg1:string):Promise<string>;

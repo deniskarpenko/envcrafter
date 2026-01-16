@@ -13,7 +13,3 @@ export function GetAllImages() {
 export function GetTagByImageId(arg1) {
   return window['go']['main']['App']['GetTagByImageId'](arg1);
 }
-
-export function Greet(arg1) {
-  return window['go']['main']['App']['Greet'](arg1);
-}

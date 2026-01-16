@@ -59,10 +59,6 @@ func (a *App) GetTagByImageId(imageId int) []models.Tag {
 	return tags
 }
 
-func (a *App) Build(project Project) 
-{
-	if project.Backend {
-
-	}
-	fmt.Println(project)
+func (a *App) Build(project Project) {
+	fmt.Printf("Building project: %+v\n", project)
 }

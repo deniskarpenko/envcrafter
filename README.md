@@ -53,6 +53,4 @@ cd env-crafter/
 
  go run .\migrations\migrate.go
  
- cd gui
-# Follow Wails setup instructions
 wails dev
